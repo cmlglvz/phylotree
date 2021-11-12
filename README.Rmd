@@ -1,6 +1,6 @@
 ---
 title: "README"
-output: github_document
+output: html_document
 ---
 
 ```{r setup, include=FALSE}
@@ -15,4 +15,4 @@ En este repositorio se guardaran los scripts utilizados para la realización ár
 
 :palm_tree:
 :evergreen_tree:
-:decidious_tree:
+:deciduous_tree:
