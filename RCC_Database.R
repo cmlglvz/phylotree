@@ -1,6 +1,8 @@
 library(tidyverse)
 library(ape)
 library(seqinr)
+library(ShortRead)
+library(DECIPHER)
 
 rcc_accession <- read.table("D:/CamiloG/RCCdatabase/accesion_rcc")
 rcc_accession <- rcc_accession$V1
