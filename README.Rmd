@@ -5,11 +5,6 @@ output: html_document
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
-library(tidyverse)
-library(ape)
-library(seqinr)
-library(ShortRead)
-library(DECIPHER)
 ```
 En este repositorio se guardaran los scripts utilizados para la realización árboles filogenéticos y la obtención de bases de datos
 
