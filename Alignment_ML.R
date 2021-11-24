@@ -65,5 +65,30 @@ ggplot(o.nwk, aes(x, y)) + geom_tree() + theme_tree()
 phyl <- as.phylo(dend)
 
 
-t <- ggplot(v.dend, ladderize = TRUE, branch.length = "none") + geom_tree() + theme_tree() + geom_tiplab(geom = "text", size = 4)
+ggplot(v.dend, ladderize = TRUE, branch.length = "none") + geom_tree() + theme_tree() + geom_tiplab(geom = "text", size = 4)
+ggplot(v.dend, ladderize = FALSE, branch.length = "none") + geom_tree() + theme_tree() + geom_tiplab(geom = "text", size = 4)
+ggplot(v.dend, 
+       ladderize = FALSE, 
+       branch.length = "none") + 
+  geom_tree() + theme_tree() + 
+  geom_tiplab(geom = "text", 
+              size = 4) + 
+  geom_treescale(x = 0, 
+                 y = 1300, 
+                 width = 3, 
+                 offset = 1,
+                 offset.label = 1,
+                 color = "red")
+ggplot(v.dend, 
+       ladderize = TRUE, 
+       branch.length = "none") + 
+  geom_tree() + theme_tree() + 
+  geom_tiplab(geom = "text", 
+              size = 4) + 
+  geom_treescale(x = 0, 
+                 y = 1300, 
+                 width = 3, 
+                 offset = 1,
+                 offset.label = 1,
+                 color = "red")
 ggplot2::ggsave(plot = t, filename = "Tree.png", path = "D:/Documents/GitHub/phylotree/", dpi = 600)

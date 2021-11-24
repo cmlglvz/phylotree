@@ -5,6 +5,64 @@ library(ips)
 library(Biostrings)
 library(DECIPHER)
 
+edited <- readDNAMultipleAlignment("aleRAs.afa", format = "fasta")
+eDNAStr <- as(edited, "DNAStringSet")
+BrowseSeqs(eDNAStr, htmlFile = "aleras.html")
+writeXStringSet(eDNAStr, filepath = "eAlRA.fa", format = "fasta")
+autoMasked <- maskGaps(edited, min.fraction = 0.3, min.block.width = 4)
+ATMskd <- as(autoMasked, "DNAStringSet")
+writeXStringSet(ATMskd, filepath = "atmmskd.fa", format = "fasta")
+BrowseSeqs(ATMskd, htmlFile = "atmskd.html")
+alfabeto <- alphabetFrequency(autoMasked)
+ConMat <- consensusMatrix(autoMasked, as.prob = TRUE, baseOnly = TRUE)[, 1:504]
+nidea <- substr(consensusString(autoMasked), 219, 431)
+consensusViews(autoMasked)
+lsdist <- stringDist(ATMskd, method = "levenshtein")
+hsdist <- stringDist(ATMskd, method = "hamming")
+ls.clust <- hclust(lsdist, method = "single")
+lc.clust <- hclust(lsdist, method = "complete")
+hs.clust <- hclust(hsdist, method = "single")
+hc.clust <- hclust(hsdist, method = "complete")
+
+par(mar = c(5, 4, 4, 1.8) + 0.1)
+plot(ls.clust, hang = -1, cex = 0.7, main = "Levenshtein distance with single hierarchical clustering")
+dev.off()
+
+dhc <- as.dendrogram(ls.clust)
+
+par(mar = c(1, 1, 1, 7) + 0.1)
+plot(dhc, 
+     type = "rectangle", 
+     main = "Levenshtein distance with single hierarchical clustering", 
+     xlab = "height", 
+     ylim = c(1, 504),
+     horiz = TRUE)
+dev.off()
+
+eMasked <- ATMskd[-c(64, 138, 204, 503)]
+writeXStringSet(eMasked, filepath = "eMasked.fas", format = "fasta")
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 fast <- readDNAMultipleAlignment("eRAs.afa", format = "fasta")
 fDNAStr <- as(fast, "DNAStringSet")
 writeXStringSet(fDNAStr, filepath = "fRAMxd.fa", format = "fasta")
