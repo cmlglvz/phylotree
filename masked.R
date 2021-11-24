@@ -39,10 +39,20 @@ plot(dhc,
      horiz = TRUE)
 dev.off()
 
-eMasked <- ATMskd[-c(64, 138, 204, 503)]
+eMasked <- ATMskd[-c(7, 11, 15, 19, 20, 25, 26, 31, 40, 43, 52, 58, 62, 64, 67, 75, 79, 82, 88, 95, 99, 100, 111, 113, 121, 123, 
+                     125, 131, 132, 135, 136, 138, 142, 147, 150:153, 160, 165, 168, 173, 175, 176, 179, 181, 187, 193, 195, 197, 198, 
+                     204, 208, 215:217, 221, 227, 229, 230, 236:238, 240, 245, 248, 257, 258, 260, 262, 264, 268, 274, 276, 278, 299, 
+                     300, 307:310, 313, 321, 322, 325, 331, 333, 334, 340, 342:344, 357, 361:365, 367, 371, 380, 385, 407, 414:416, 
+                     425, 426, 432, 434:436, 439, 440, 448, 449, 454, 461, 463, 470, 476, 479, 491, 494, 496, 503), ]
+BrowseSeqs(eMasked, htmlFile = "emasked.html")
 writeXStringSet(eMasked, filepath = "eMasked.fas", format = "fasta")
 
-
+elsdist <- stringDist(ATMskd, method = "levenshtein")
+ehsdist <- stringDist(ATMskd, method = "hamming")
+els.clust <- hclust(lsdist, method = "single")
+elc.clust <- hclust(lsdist, method = "complete")
+ehs.clust <- hclust(hsdist, method = "single")
+ehc.clust <- hclust(hsdist, method = "complete")
 
 
 
