@@ -49,13 +49,15 @@ writeXStringSet(eMasked, filepath = "eMasked.fas", format = "fasta")
 
 elsdist <- stringDist(ATMskd, method = "levenshtein")
 ehsdist <- stringDist(ATMskd, method = "hamming")
-els.clust <- hclust(lsdist, method = "single")
-elc.clust <- hclust(lsdist, method = "complete")
-ehs.clust <- hclust(hsdist, method = "single")
-ehc.clust <- hclust(hsdist, method = "complete")
+els.clust <- hclust(elsdist, method = "single")
+elc.clust <- hclust(elsdist, method = "complete")
+ehs.clust <- hclust(ehsdist, method = "single")
+ehc.clust <- hclust(ehsdist, method = "complete")
 
-
-
+plot(els.clust, hang = -1, cex = 0.7)
+plot(elc.clust, hang = -1, cex = 0.7)
+plot(ehs.clust, hang = -1, cex = 0.7)
+plot(ehc.clust, hang = -1, cex = 0.7)
 
 
 
