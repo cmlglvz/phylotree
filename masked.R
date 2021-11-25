@@ -45,7 +45,7 @@ eMasked <- ATMskd[-c(7, 11, 15, 19, 20, 25, 26, 31, 40, 43, 52, 58, 62, 64, 67, 
                      300, 307:310, 313, 321, 322, 325, 331, 333, 334, 340, 342:344, 357, 361:365, 367, 371, 380, 385, 407, 414:416, 
                      425, 426, 432, 434:436, 439, 440, 448, 449, 454, 461, 463, 470, 476, 479, 491, 494, 496, 503), ]
 BrowseSeqs(eMasked, htmlFile = "emasked.html")
-writeXStringSet(eMasked, filepath = "eMasked.fas", format = "fasta")
+writeXStringSet(eMasked, filepath = "eMasked.fasta", format = "fasta")
 
 elsdist <- stringDist(ATMskd, method = "levenshtein")
 ehsdist <- stringDist(ATMskd, method = "hamming")
@@ -59,7 +59,10 @@ plot(elc.clust, hang = -1, cex = 0.7)
 plot(ehs.clust, hang = -1, cex = 0.7)
 plot(ehc.clust, hang = -1, cex = 0.7)
 
-
+alist <- c("Fragilaria_sp-_RCC5541_")
+eMasked[alist]
+emksd <- eMasked[-c(3, 16, 21, 23, 34, 52, 71, 77, 87, 122, 135, 134, 143, 147, 162, 175, 184, 185, 191, 197, 217, 221, 
+                    226, 251, 256, 266, 281, 290, 292, 314, 315, 318, 321, 328, 341, 344, 371, )]
 
 
 
