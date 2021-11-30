@@ -125,7 +125,7 @@ plot(plc.clust, hang = -1, cex = 0.7)
 plot(phs.clust, hang = -1, cex = 0.7)
 plot(phc.clust, hang = -1, cex = 0.7)
 
-Ali <- "pmskrd.fas"
+Ali <- "pmskrd.fasta"
 dbConn <- dbConnect(SQLite(), ":memory:")
 Seqs2DB(Ali, type = "FASTA", dbFile = dbConn, "")
 
