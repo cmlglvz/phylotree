@@ -154,6 +154,108 @@ HM.MLsASVs<- heatmaply(normalize(eShaASVs),
 )
 saveWidget(HM.MLsASVs, file = "ml_hmsasvs.html")
 
+plasma <- heatmaply(normalize(eShaASVs), 
+                       Colv = c.dend, 
+                       Rowv = NA, 
+                       main = "Shared ASVs across all sites ordered by clustering alignments based on their maximum likelihood",
+                       margins = c(50, 50, 70, 0),
+                       grid_gap = 1, 
+                       width = 1920,
+                       height = 1080, 
+                       subplot_heights = c(0.35, 0.65), 
+                    color = viridis(n = 256, 
+                                    alpha = 1, 
+                                    begin = 0, 
+                                    end = 1, 
+                                    option = "plasma")
+)
+saveWidget(plasma, file = "plasma_hmsasvs.html")
+
+magma <- heatmaply(normalize(eShaASVs), 
+                    Colv = c.dend, 
+                    Rowv = NA, 
+                    main = "Shared ASVs across all sites ordered by clustering alignments based on their maximum likelihood",
+                    margins = c(50, 50, 70, 0),
+                    grid_gap = 1, 
+                    width = 1920,
+                    height = 1080, 
+                    subplot_heights = c(0.35, 0.65), 
+                    color = viridis(n = 256, 
+                                    alpha = 1, 
+                                    begin = 0, 
+                                    end = 1, 
+                                    option = "magma")
+)
+saveWidget(magma, file = "magma_hmsasvs.html")
+
+inferno <- heatmaply(normalize(eShaASVs), 
+                   Colv = c.dend, 
+                   Rowv = NA, 
+                   main = "Shared ASVs across all sites ordered by clustering alignments based on their maximum likelihood",
+                   margins = c(50, 50, 70, 0),
+                   grid_gap = 1, 
+                   width = 1920,
+                   height = 1080, 
+                   subplot_heights = c(0.35, 0.65), 
+                   color = viridis(n = 256, 
+                                   alpha = 1, 
+                                   begin = 0, 
+                                   end = 1, 
+                                   option = "inferno")
+)
+saveWidget(inferno, file = "inferno_hmsasvs.html")
+
+cividis <- heatmaply(normalize(eShaASVs), 
+                   Colv = c.dend, 
+                   Rowv = NA, 
+                   main = "Shared ASVs across all sites ordered by clustering alignments based on their maximum likelihood",
+                   margins = c(50, 50, 70, 0),
+                   grid_gap = 1, 
+                   width = 1920,
+                   height = 1080, 
+                   subplot_heights = c(0.35, 0.65), 
+                   color = viridis(n = 256, 
+                                   alpha = 1, 
+                                   begin = 0, 
+                                   end = 1, 
+                                   option = "cividis")
+)
+saveWidget(cividis, file = "cividis_hmsasvs.html")
+
+mako <- heatmaply(normalize(eShaASVs), 
+                   Colv = c.dend, 
+                   Rowv = NA, 
+                   main = "Shared ASVs across all sites ordered by clustering alignments based on their maximum likelihood",
+                   margins = c(50, 50, 70, 0),
+                   grid_gap = 1, 
+                   width = 1920,
+                   height = 1080, 
+                   subplot_heights = c(0.35, 0.65), 
+                   color = viridis(n = 256, 
+                                   alpha = 1, 
+                                   begin = 0, 
+                                   end = 1, 
+                                   option = "mako")
+)
+saveWidget(mako, file = "mako_hmsasvs.html")
+
+rocket <- heatmaply(normalize(eShaASVs), 
+                   Colv = c.dend, 
+                   Rowv = NA, 
+                   main = "Shared ASVs across all sites ordered by clustering alignments based on their maximum likelihood",
+                   margins = c(50, 50, 70, 0),
+                   grid_gap = 1, 
+                   width = 1920,
+                   height = 1080, 
+                   subplot_heights = c(0.35, 0.65), 
+                   color = viridis(n = 256, 
+                                   alpha = 1, 
+                                   begin = 0, 
+                                   end = 1, 
+                                   option = "rocket")
+)
+saveWidget(rocket, file = "rocket_hmsasvs.html")
+
 HM.MLgSha <- heatmaply(normalize(t(gShaASVs)), 
                     Colv = c.dend, 
                     Rowv = NA, 
