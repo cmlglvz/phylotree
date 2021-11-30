@@ -147,7 +147,7 @@ dend <- IdClusters(d,
                    verbose = TRUE)
 
 hclust <- as.hclust(dend)
-plot(hclust, hang = -1, cex = 0.7)
+plot(hclust, cex = 0.7)
 devolve <- as.dendrogram(hclust)
 plot(devolve)
 
