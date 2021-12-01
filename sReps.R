@@ -203,7 +203,7 @@ Reps <- select(nShaASVs, jirillos)
 rViridis <- heatmaply(normalize(Reps), 
                  Colv = c.dend, 
                  Rowv = NA, 
-                 main = "Representative shared ASVs across all sample clustered with maximum likelihood",
+                 main = "Representative shared ASVs across all samples clustered with maximum likelihood",
                  margins = c(50, 50, 70, 0), 
                  grid_gap = 1,
                  width = 1920, 
@@ -220,7 +220,7 @@ saveWidget(rViridis, file = "viridis_mlreps.html")
 rHeat <- heatmaply(normalize(Reps), 
                    Colv = c.dend, 
                    Rowv = NA, 
-                   main = "Representative shared ASVs across all sample clustered with maximum likelihood", 
+                   main = "Representative shared ASVs across all samples clustered with maximum likelihood", 
                    margins = c(50, 50, 70, 0), 
                    grid_gap = 1, 
                    grid_color = "#DEE2E6", 
@@ -232,6 +232,41 @@ rHeat <- heatmaply(normalize(Reps),
                                        rev = TRUE)
 )
 saveWidget(rHeat, file = "heat_mlreps.html")
+
+gReps <- select(gsites, jirillos)
+
+gViridis <- heatmaply(normalize(gReps), 
+                      Colv = c.dend, 
+                      Rowv = NA, 
+                      main = "Representative shared ASVs across all samples clustered with maximum likelihood",
+                      margins = c(50, 50, 70, 0), 
+                      grid_gap = 1,
+                      width = 1920, 
+                      height = 1080, 
+                      subplot_heights = c(0.35, 0.65), 
+                      color = viridis(n = 256, 
+                                      alpha = 1, 
+                                      begin = 0, 
+                                      end = 1, 
+                                      option = "viridis")
+)
+saveWidget(gViridis, file = "viridis__grouped_mlreps.html")
+
+gHeat <- heatmaply(normalize(gReps), 
+                   Colv = c.dend, 
+                   Rowv = NA, 
+                   main = "Representative shared ASVs across all samples clustered with maximum likelihood", 
+                   margins = c(50, 50, 70, 0), 
+                   grid_gap = 1, 
+                   grid_color = "#DEE2E6", 
+                   width = 1920, 
+                   height = 1080, 
+                   subplot_heights = c(0.35, 0.65), 
+                   color = heat.colors(n = 256, 
+                                       alpha = 1, 
+                                       rev = TRUE)
+)
+saveWidget(gHeat, file = "heat_grouped_mlreps.html")
 
 cvirmap <- heatmaply(normalize(t(cheat)), 
                      Colv = NA, 
