@@ -26,7 +26,7 @@ fitGTR <- update(fit, k = 4, inv = 0.2)
 fitGTR <- optim.pml(fitGTR, model = "GTR", optInv = TRUE, optGamma = TRUE, rearrangement = "NNI", control = pml.control(trace = 0))
 fitGTR <- optim.pml(fitGTR, model = "GTR", optInv = TRUE, optGamma = TRUE, rearrangement = "stochastic", control = pml.control(trace = 0))
 fitGTR
-
+mt <- modelTest(dna)
 
 
 
