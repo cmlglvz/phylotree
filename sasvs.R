@@ -591,6 +591,7 @@ gHeat <- heatmaply(normalize(t(cShaASVs)),
 )
 saveWidget(gHeat, file = "heat_grouped_hmshaml.html")
 
+write.csv2(cShaASVs, file = "cShaASVs.csv")
 
 
 
