@@ -233,45 +233,6 @@ rHeat <- heatmaply(normalize(Reps),
 )
 saveWidget(rHeat, file = "heat_mlreps.html")
 
-cgShaASVs <- as.data.frame(t(cShaASVs))
-cgShaASVs <- cgShaASVs %>% 
-  mutate(Cha = rowSums(cgShaASVs[1:12]), 
-         Fla = rowSums(cgShaASVs[13:24]), 
-         Hu = rowSums(cgShaASVs[25:36]), 
-         Pc = rowSums(cgShaASVs[37:41])
-  )
-cgShaASVs <- cgShaASVs[, -c(1:41)]
-cgHM <- heatmaply(normalize(t(cgShaASVs)), 
-                  Colv = c.dend, 
-                  Rowv = NA, 
-                  margins = c(50, 50, 70, 0), 
-                  grid_gap = 1, 
-                  width = 1920, 
-                  height = 1080, 
-                  subplot_heights = c(0.5, 0.5), 
-                  color = viridis(n = 256, 
-                                  alpha = 1, 
-                                  begin = 0, 
-                                  end = 1, 
-                                  option = "turbo")
-)
-saveWidget(cgHM, file = "turbo_cghmgsha_reps.html")
-
-cgHMt <- heatmaply(normalize(t(cgShaASVs)), 
-                   Colv = c.dend, 
-                   Rowv = NA,
-                   margins = c(50, 50, 70, 0), 
-                   grid_gap = 1, 
-                   grid_color = "#dee2e6",
-                   width = 1920,
-                   height = 1080, 
-                   subplot_heights = c(0.5, 0.5), 
-                   color = heat.colors(n = 256, 
-                                       alpha = 1, 
-                                       rev = TRUE)
-)
-saveWidget(cgHMt, file = "heat_cghmgsha_reps.html")
-
 cvirmap <- heatmaply(normalize(t(cheat)), 
                      Colv = NA, 
                      Rowv = NA, 
