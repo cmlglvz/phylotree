@@ -2,7 +2,6 @@ library(tidyverse)
 library(viridis)
 library(ape)
 library(phangorn)
-library(ips)
 library(Biostrings)
 library(DECIPHER)
 library(dendextend)
@@ -293,10 +292,53 @@ cheatmap <- heatmaply(normalize(t(cheat)),
                                            rev = TRUE)
 )
 saveWidget(cheatmap, file = "cheatmap_reps.html")
+browseURL("cheatmap_reps.png")
 
+gcheatmap <- ggheatmap(normalize(t(cheat)), 
+                       Colv = NA, 
+                       Rowv = NA, 
+                       main = "PPE selected ASV group as genus for Cha, Fla, Hu and Pc", 
+                       margins = c(50, 50, 70, 10), 
+                       grid_gap = 1, 
+                       grid_color = "#DEE2E6", 
+                       widths = 1920, 
+                       heights = 1080, 
+                       colors = heat.colors(n =256, 
+                                            alpha = 1, 
+                                            rev = TRUE), 
+                       hide_colorbar = FALSE)
 
+pcheatmap <- heatmaply(normalize(t(cheat)), 
+                      Colv = NA, 
+                      Rowv = NA, 
+                      main = "PPE selected ASV shown as genus at the four sites",
+                      margins = c(50, 50, 70, 0), 
+                      grid_gap = 1, 
+                      grid_color = "#DEE2E6", 
+                      width = 1920, 
+                      height = 1080, 
+                      colors = heat.colors(n = 256, 
+                                           alpha = 1, 
+                                           rev = TRUE), 
+                      file = "cheatmap_reps.png")
 
+pngHeat <- heatmaply(normalize(gReps), 
+                   Colv = c.dend, 
+                   Rowv = NA, 
+                   main = "Representative shared ASVs across all samples clustered with maximum likelihood", 
+                   margins = c(50, 50, 70, 0), 
+                   grid_gap = 1, 
+                   grid_color = "#DEE2E6", 
+                   widths = 3840, 
+                   heights = 2160, 
+                   subplot_heights = c(0.35, 0.65), 
+                   color = heat.colors(n = 256, 
+                                       alpha = 1, 
+                                       rev = TRUE), 
+                   file = "pngheat.png"
+)
 
+ggHeat <- ggheatmap()
 
 
 
