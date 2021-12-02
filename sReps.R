@@ -338,11 +338,60 @@ pngHeat <- heatmaply(normalize(gReps),
                    file = "pngheat.png"
 )
 
-ggHeat <- ggheatmap()
+ggHeat <- ggheatmap(normalize(gReps), 
+                    Colv = c.dend, 
+                    Rowv = NA, 
+                    main = "Representative shared ASVs across all samples clustered with maximum likelihood", 
+                    margins = c(50, 50, 70, 10), 
+                    grid_gap = 1, 
+                    grid_color = "#DEE2E6", 
+                    subplot_heights = c(0.35, 0.65), 
+                    color = heat.colors(n = 256, 
+                                        alpha = 1, 
+                                        rev = TRUE),
+                    color_xanchor = "right", 
+                    color_yanchor =  "middle", 
+                    hide_colorbar = FALSE)
+
+ggsave(ggheatmap(normalize(gReps), 
+                 Colv = c.dend, 
+                 Rowv = NA, 
+                 main = "Representative shared ASVs across all samples clustered with maximum likelihood", 
+                 margins = c(50, 50, 70, 10), 
+                 grid_gap = 1, 
+                 grid_color = "#DEE2E6", 
+                 subplot_heights = c(0.35, 0.65), 
+                 color = heat.colors(n = 256, 
+                                     alpha = 1, 
+                                     rev = TRUE), 
+                 plot_method = "plotly", 
+                 color_len = 1, 
+                 color_xanchor = "right", 
+                 color_yanchor =  "middle", 
+                 hide_colorbar = FALSE), 
+       filename = "gg.png", 
+       path = "C:/Users/Camilo/Desktop/", 
+       device = "png", 
+       units = "in", 
+       width = 45, 
+       height = 30, 
+       dpi = 600, 
+       limitsize = FALSE)
 
 
-
-
-
-
+gg <- heatmaply(normalize(gReps), 
+                Colv = c.dend, 
+                Rowv = NA, 
+                main = "Representative shared ASVs across all samples clustered with maximum likelihood", 
+                margins = c(50, 50, 70, 10), 
+                grid_gap = 1, 
+                grid_color = "#DEE2E6", 
+                subplot_heights = c(0.35, 0.65), 
+                color = heat.colors(n = 256, 
+                                    alpha = 1, 
+                                    rev = TRUE), 
+                plot_method = "plotly", 
+                color_len = 1, 
+                color_xanchor = "right", 
+                color_yanchor =  "middle")
 
