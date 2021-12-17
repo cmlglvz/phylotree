@@ -1,0 +1,41 @@
+---
+title: "ML_Heatmap"
+output: html_document
+---
+
+Vamos a suponer que todo vamos a trabajar directamente desde el final del pipeline de `DADA2`, con la tabla de abundancia de secuencias (ASV) ya filtrada de las secuencias quimerícas (seqtab.nochim)
+
+## Paquetes
+
+```{Paquetesm, echo=TRUE, message=FALSE, warning=FALSE, include=TRUE}
+library(tidyverse) #Generalmente uso paquetes del mundo tidy para facilitar el orden y flujo de trabajo
+library(viridis) #Paletas de colores para gráficos
+library(ape) #
+library(phangorn) #
+library(Biostrings) #
+library(DECIPHER) #
+library(dendextend) #
+library(heatmaply) #Paquete para crear heatmaps interactivos
+library(htmlwidgets) #Paquete para guardar objetos y graficos interactivos
+library(gtools)
+```
+
+## R Markdown
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+```{r cars}
+summary(cars)
+```
+
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r pressure, echo=FALSE}
+plot(pressure)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
