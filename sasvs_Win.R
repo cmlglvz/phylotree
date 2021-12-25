@@ -10,6 +10,7 @@ library(heatmaply)
 library(htmlwidgets)
 library(gtools)
 library(phyloseq)
+library(vegan)
 
 sASVs <- readDNAMultipleAlignment("sASVs.afa", format = "fasta")
 sDNAStr <- as(sASVs, "DNAStringSet")
@@ -17,7 +18,7 @@ BrowseSeqs(sDNAStr, htmlFile = "sasvs.html")
 writeXStringSet(sDNAStr, filepath = "sasvs.fas", format = "fasta")
 autoMasked <- maskGaps(sASVs, min.fraction = 0.3, min.block.width = 4)
 ATMskd <- as(autoMasked, "DNAStringSet")
-writeXStringSet(ATMskd, filepath = "sasvsmmskd.fas", format = "fasta")
+writeXStringSet(ATMskd, filepath = "sasvsmmskd.fasta", format = "fasta")
 BrowseSeqs(ATMskd, htmlFile = "atmskdsasvs.html")
 alfabeto <- alphabetFrequency(autoMasked)
 ConMat <- consensusMatrix(autoMasked, as.prob = TRUE, baseOnly = TRUE)[, 1:158]
@@ -306,19 +307,18 @@ oHM.MLgSha <- heatmaply(normalize(t(gShaASVs)),
 )
 saveWidget(oHM.MLgSha, file = "heat_hmgsha.html")
 
-ShaASVs <- read.csv2("https://raw.githubusercontent.com/cmlglvz/datasets/master/Data/eAnalisis/ShaASVs.csv", header = TRUE, sep = ";", dec = ".", row.names = 1, skip = 0)
-asvtable <- as.matrix(ShaASVs)
-ShaTXs <- read.csv2(file = "https://raw.githubusercontent.com/cmlglvz/datasets/master/Data/eAnalisis/ShaTXs.csv", header = TRUE, sep = ";", dec = ".", row.names = 1, skip = 0)
-cnms <- sASVs@unmasked@ranges@NAMES
-colnames(asvtable) <- ShaTXs$OTU
-taxmat <- as.matrix(ShaTXs)
-rownames(taxmat) <- ShaTXs$OTU
-taxmat <- taxmat[, -c(1,2)]
+eShaTXs <- ShaTXs[, -c(1:3)]
+rownames(eShaTXs) <- dOTU
+eShaTXs <- eShaTXs[mOTU, ]
+asvtable <- as.matrix(eShaASVs)
+taxmat <- as.matrix(eShaTXs)
+EnvMe <- read.csv2(file = "/Users/Artemis/Documents/GitHub/datasets/Data/eAnalisis/EnvMe.csv", header = TRUE, sep = ";", dec = ".", row.names = 1, skip = 0)
 OTU <- otu_table(object = asvtable, taxa_are_rows = FALSE)
 TAX <- tax_table(object = taxmat)
 physeq <- phyloseq(OTU, TAX)
 plot_bar(physeq, fill = "Genus")
 
+random_tree <- rtree(ntaxa(physeq), rooted = TRUE, tip.label = taxa_names(physeq))
 
 
 
