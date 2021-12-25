@@ -9,6 +9,7 @@ library(dendextend)
 library(heatmaply)
 library(htmlwidgets)
 library(gtools)
+library(phyloseq)
 
 sASVs <- readDNAMultipleAlignment("sASVs.afa", format = "fasta")
 sDNAStr <- as(sASVs, "DNAStringSet")
@@ -305,6 +306,18 @@ oHM.MLgSha <- heatmaply(normalize(t(gShaASVs)),
 )
 saveWidget(oHM.MLgSha, file = "heat_hmgsha.html")
 
+ShaASVs <- read.csv2("https://raw.githubusercontent.com/cmlglvz/datasets/master/Data/eAnalisis/ShaASVs.csv", header = TRUE, sep = ";", dec = ".", row.names = 1, skip = 0)
+asvtable <- as.matrix(ShaASVs)
+ShaTXs <- read.csv2(file = "https://raw.githubusercontent.com/cmlglvz/datasets/master/Data/eAnalisis/ShaTXs.csv", header = TRUE, sep = ";", dec = ".", row.names = 1, skip = 0)
+cnms <- sASVs@unmasked@ranges@NAMES
+colnames(asvtable) <- ShaTXs$OTU
+taxmat <- as.matrix(ShaTXs)
+rownames(taxmat) <- ShaTXs$OTU
+taxmat <- taxmat[, -c(1,2)]
+OTU <- otu_table(object = asvtable, taxa_are_rows = FALSE)
+TAX <- tax_table(object = taxmat)
+physeq <- phyloseq(OTU, TAX)
+plot_bar(physeq, fill = "Genus")
 
 
 
