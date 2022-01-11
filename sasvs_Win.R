@@ -11,6 +11,8 @@ library(htmlwidgets)
 library(gtools)
 library(phyloseq)
 library(vegan)
+library(BiodiversityR)
+library(ggrepel)
 
 sASVs <- readDNAMultipleAlignment("sASVs.afa", format = "fasta")
 sDNAStr <- as(sASVs, "DNAStringSet")
@@ -310,15 +312,208 @@ saveWidget(oHM.MLgSha, file = "heat_hmgsha.html")
 eShaTXs <- ShaTXs[, -c(1:3)]
 rownames(eShaTXs) <- dOTU
 eShaTXs <- eShaTXs[mOTU, ]
-asvtable <- as.matrix(eShaASVs)
+asvtable <- as.matrix(t(eShaASVs))
 taxmat <- as.matrix(eShaTXs)
 EnvMe <- read.csv2(file = "/Users/Artemis/Documents/GitHub/datasets/Data/eAnalisis/EnvMe.csv", header = TRUE, sep = ";", dec = ".", row.names = 1, skip = 0)
-OTU <- otu_table(object = asvtable, taxa_are_rows = FALSE)
+OTU <- otu_table(object = asvtable, taxa_are_rows = TRUE)
 TAX <- tax_table(object = taxmat)
-physeq <- phyloseq(OTU, TAX)
-plot_bar(physeq, fill = "Genus")
+SAMPLE <- sample_data(object = EnvMe)
+ASV <- read.FASTA(file = "C:/Users/Camilo/Dropbox/sasvsmmskd.fasta", type = "DNA")
+pASV <- phyDat(ASV, type = "DNA", levels = NULL, return.index = TRUE)
+dm <- dist.ml(pASV)
+tNJ <- NJ(dm)
+mt <- modelTest(pASV, tree = tNJ)
+bfit <- as.data.frame(mt)
+write.csv2(bfit, "C:/Users/Camilo/Desktop/bfit.csv")
 
-random_tree <- rtree(ntaxa(physeq), rooted = TRUE, tip.label = taxa_names(physeq))
+fit <- pml(tNJ, data = pASV)
+fitG <- optim.pml(fit, TRUE)
+fitT <- update(fit, k = 4, inv = 0.26)
+fitGTR <- optim.pml(fitT, 
+                    model = "GTR", 
+                    optNni = TRUE, 
+                    optBf = TRUE, 
+                    optGamma = TRUE, 
+                    rearrangement = "stochastic", 
+                    control = pml.control(trace = 0)
+)
+bs <- bootstrap.pml(fitGTR, bs = 1000, optNni = TRUE, control = pml.control(trace = 0))
+plotBS(midpoint(fitGTR$tree), bs, p = 50, type = "p")
+
+physq <- phyloseq(OTU, TAX, SAMPLE, phytools::midpoint.root(fitGTR$tree))
+
+plot_tree(physq, color = "Site", label.tips = "taxa_names", ladderize = "left", plot.margin = 0.3)
+plot_heatmap(physq)
+plot_tree(physq, size = "abundance", color = "Site", label.tips = "taxa_names")
+
+trank <- rankabundance(eShaASVs)
+write.csv2(trank, "total_rankabundance.csv")
+rankabunplot(xr = trank, scale = "proportion", addit = FALSE, scaledx = FALSE, specnames = c(1:10))
+
+charank <- rankabundance(eShaASVs[c(1:12), ])
+rankabunplot(charank, scale = "proportion", addit = FALSE, scaledx = FALSE, specnames = c(1:10))
+
+flarank <- rankabundance(eShaASVs[c(13:24), ])
+rankabunplot(flarank, scale = "proportion", addit = FALSE, scaledx = FALSE, specnames = c(1:10))
+
+huarank <- rankabundance(eShaASVs[c(24:36)], )
+rankabunplot(huarank, scale = "proportion", addit = FALSE, scaledx = FALSE, specnames = c(1:10))
+
+pcrank <- rankabundance(eShaASVs[c(37:41), ])
+rankabunplot(pcrank, scale = "proportion", addit = FALSE, scaledx = FALSE, specnames = c(1:10))
+
+rcomp <- rankabuncomp(eShaASVs, EnvMe, factor = "Site", scale = "proportion", return.data = TRUE, legend = TRUE, specnames = c(1:10))
+write.csv2(rcomp, "composite_rankabundance.csv")
+compRA <- read.csv2("eCompRAbun.csv", header = TRUE, sep = ";", dec = ",", skip = 0, row.names = 1, fill = TRUE)
+
+BioR.theme <- theme(
+  panel.background = element_blank(),
+  panel.border = element_blank(),
+  panel.grid = element_blank(),
+  axis.line = element_line("gray25"),
+  text = element_text(size = 12, family="Arial"),
+  axis.text = element_text(size = 10, colour = "gray25"),
+  axis.title = element_text(size = 14, colour = "gray25"),
+  legend.title = element_text(size = 14),
+  legend.text = element_text(size = 14),
+  legend.key = element_blank())
+
+prcomp <- ggplot(data = compRA, aes(x = rank, y = proportion)) + 
+  scale_x_continuous(expand = c(0, 1), sec.axis = dup_axis(labels = NULL, name = NULL)) +
+  scale_y_continuous(expand = c(0, 2), sec.axis = dup_axis(labels = NULL, name = NULL)) +
+  geom_line(aes(colour = Grouping), size = 1) +
+  geom_point(aes(colour = Grouping), size = 3, alpha = 0.7) +
+  geom_text_repel(data = subset(compRA, labelit == TRUE), 
+                  aes(label = species), 
+                  angle = 5, nudge_x = 2, nudge_y = 1, show.legend = FALSE, max.overlaps = Inf) +
+  BioR.theme +
+  scale_color_manual(values = c("#440154", "#1C3B74", "#20A387", "#FDE725")) +
+  facet_wrap(~ Grouping) +
+  labs(x = "Rank", y = "Abundance Proportion", colour = "Site")
+prcomp
+
+ggsave(prcomp, file = "composite_rankabundance.png", path = "/Users/Artemis/Documents/GitHub/phylotree/", width = 13, height = 13, dpi = 600)
+
+ChlIASVs <- select(eShaASVs, all_of(lChl_I))
+CURAbn <- rankabuncomp(ChlIASVs, EnvMe, factor = "Site", scale = "proportion", return.data = TRUE, legend = TRUE, specnames = c(1:10))
+write.csv2(CURAbn, "Chl_I_RAbun.csv")
+#edited externally
+ChlI <- read.csv2("eChl_I_RAbun.csv", header = TRUE, sep = ";", dec = ",", row.names = 1, skip = 0, fill = TRUE)
+ChlUno <- ggplot(data = ChlI, aes(x = rank, y = proportion)) + 
+  scale_x_continuous(expand = c(0, 1), sec.axis = dup_axis(labels = NULL, name = NULL)) + 
+  scale_y_continuous(expand = c(0, 2), sec.axis = dup_axis(labels = NULL, name = NULL)) + 
+  geom_line(aes(colour = Grouping), size = 1) + 
+  geom_point(aes(colour = Grouping), size = 3, alpha = 0.7) + 
+  geom_text_repel(data = subset(ChlI, labelit == TRUE), 
+                  aes(label = species), 
+                  angle = 5, nudge_x = 2, nudge_y = 1, show.legend = FALSE, max.overlaps = Inf) + 
+  BioR.theme + 
+  scale_color_manual(values = c("#440154", "#1C3B74", "#20A387", "#FDE725")) + 
+  facet_wrap(~ Grouping) + 
+  labs(x = "Rank", y = "Proportional Abundance", colour = "Site")
+ggsave(ChlUno, file = "Chl_I_CRAbun.png", path = "/Users/Artemis/Documents/GitHub/phylotree/", width = 13, height = 13, dpi = 600)
+
+ChlIIASVs <- select(eShaASVs, all_of(lChl_II))
+CDRAbn <- rankabuncomp(ChlIIASVs, EnvMe, factor = "Site", scale = "proportion", return.data = TRUE, legend = TRUE, specnames = c(1:10))
+write.csv2(CDRAbn, "Chl_II_RAbun.csv")
+#edited externally
+ChlII <- read.csv2("eChl_II_RAbun.csv", header = TRUE, sep = ";", dec = ",", row.names = 1, skip = 0, fill = TRUE)
+ChlDos <- ggplot(data = ChlII, aes(x = rank, y = proportion)) + 
+  scale_x_continuous(expand = c(0, 1), sec.axis = dup_axis(labels = NULL, name = NULL)) + 
+  scale_y_continuous(expand = c(0, 2), sec.axis = dup_axis(labels = NULL, name = NULL)) + 
+  geom_line(aes(colour = Grouping), size = 1) + 
+  geom_point(aes(colour = Grouping), size = 3, alpha = 0.7) + 
+  geom_text_repel(data = subset(ChlII, labelit == TRUE), 
+                  aes(label = species), 
+                  angle = 5, nudge_x = 2, nudge_y = 1, show.legend = FALSE, max.overlaps = Inf) + 
+  BioR.theme + 
+  scale_color_manual(values = c("#440154", "#1C3B74", "#20A387", "#FDE725")) + 
+  facet_wrap(~ Grouping) + 
+  labs(x = "Rank", y = "Proportional Abundance", colour = "Site")
+ggsave(ChlDos, file = "Chl_II_CRAbun.png", path = "/Users/Artemis/Documents/GitHub/phylotree/", width = 13, height = 13, dpi = 600)
+
+HapASVs <- select(eShaASVs, all_of(lHap))
+HRAbn <- rankabuncomp(HapASVs, EnvMe, factor = "Site", scale = "proportion", return.data = TRUE, legend = TRUE, specnames = c(1:10))
+write.csv2(HRAbn, "Hap_RAbun.csv")
+#externally edited
+Hap <- read.csv2("eHap_RAbun.csv", header = TRUE, sep = ";", dec = ",", row.names = 1, skip = 0, fill = TRUE)
+pHap <- ggplot(data = Hap, aes(x = rank, y = proportion)) + 
+  scale_x_continuous(expand = c(0, 1), sec.axis = dup_axis(labels = NULL, name = NULL)) + 
+  scale_y_continuous(expand = c(0, 2), sec.axis = dup_axis(labels = NULL, name = NULL)) + 
+  geom_line(aes(colour = Grouping), size = 1) + 
+  geom_point(aes(colour = Grouping), size = 3, alpha = 0.7) + 
+  geom_text_repel(data = subset(Hap, labelit == TRUE), 
+                  aes(label = species), 
+                  angle = 5, nudge_x = 2, nudge_y = 1, show.legend = FALSE, max.overlaps = Inf) + 
+  BioR.theme + 
+  scale_color_manual(values = c("#440154", "#1C3B74", "#20A387", "#FDE725")) + 
+  facet_wrap(~ Grouping) + 
+  labs(x = "Rank", y = "Proportional Abundance", colour = "Site")
+ggsave(pHap, file = "Hap_CRAbun.png", path = "/Users/Artemis/Documents/GitHub/phylotree/", width = 13, height = 13, dpi = 600)
+
+CKASVs <- select(eShaASVs, all_of(lCK))
+CKRAbn <- rankabuncomp(CKASVs, EnvMe, factor = "Site", scale = "proportion", return.data = TRUE, legend = TRUE, specnames = c(1:10))
+write.csv2(CKRAbn, "CK_RAbun.csv")
+#Ex edt
+CK <- read.csv2("eCK_RAbun.csv", header = TRUE, sep = ";", dec = ",", row.names = 1, skip = 0, fill = TRUE)
+pCK <- ggplot(data = CK, aes(x = rank, y = proportion)) + 
+  scale_x_continuous(expand = c(0, 1), sec.axis = dup_axis(labels = NULL, name = NULL)) + 
+  scale_y_continuous(expand = c(0, 2), sec.axis = dup_axis(labels = NULL, name = NULL)) + 
+  geom_line(aes(colour = Grouping), size = 1) + 
+  geom_point(aes(colour = Grouping), size = 3, alpha = 0.7) + 
+  geom_text_repel(data = subset(CK, labelit == TRUE), 
+                  aes(label = species), 
+                  angle = 5, nudge_x = 2, nudge_y = 1, show.legend = FALSE, max.overlaps = Inf) + 
+  BioR.theme + 
+  scale_color_manual(values = c("#440154", "#1C3B74", "#20A387", "#FDE725")) + 
+  facet_wrap(~ Grouping) + 
+  labs(x = "Rank", y = "Proportional Abundance", colour = "Site")
+ggsave(pCK, file = "CK_CRAbun.png", path = "/Users/Artemis/Documents/GitHub/phylotree/", width = 15, height = 15, dpi = 600)
+
+OchIASVs <- select(eShaASVs, all_of(lOch_I))
+OURAbn <- rankabuncomp(OchIASVs, EnvMe, factor = "Site", scale = "proportion", return.data = TRUE, legend = TRUE, specnames = c(1:10))
+write.csv2(OURAbn, "Och_I_RAbun.csv")
+#ext edt
+OchI <- read.csv2("eOch_I_RAbun.csv", header = TRUE, sep = ";", dec = ",", row.names = 1, skip = 0, fill = TRUE)
+OchUno <- ggplot(data = OchI, aes(x = rank, y = proportion)) + 
+  scale_x_continuous(expand = c(0, 1), sec.axis = dup_axis(labels = NULL, name = NULL)) + 
+  scale_y_continuous(expand = c(0, 2), sec.axis = dup_axis(labels = NULL, name = NULL)) + 
+  geom_line(aes(colour = Grouping), size = 1) + 
+  geom_point(aes(colour = Grouping), size = 3, alpha = 0.7) + 
+  geom_text_repel(data = subset(OchI, labelit == TRUE), 
+                  aes(label = species), 
+                  angle = 5, nudge_x = 2, nudge_y = 1, show.legend = FALSE, max.overlaps = Inf) + 
+  BioR.theme + 
+  scale_color_manual(values = c("#440154", "#1C3B74", "#20A387", "#FDE725")) + 
+  facet_wrap(~ Grouping) + 
+  labs(x = "Rank", y = "Proportional Abundance", colour = "Site")
+ggsave(OchUno, file = "Och_I_CRAbun.png", path = "/Users/Artemis/Documents/GitHub/phylotree/", width = 15, height = 15, dpi = 600)
+
+OchIIASVs <- select(eShaASVs, all_of(lOch_II))
+ODRAbn <- rankabuncomp(OchIIASVs, EnvMe, factor = "Site", scale = "proportion", return.data = TRUE, legend = TRUE, specnames = c(1:10))
+write.csv2(ODRAbn, "Och_II_RAbun.csv")
+#ext edt
+OchII <- read.csv2("eOch_II_RAbun.csv", header = TRUE, sep = ";", dec = ",", row.names = 1, skip = 0, fill = TRUE)
+OchDos <- ggplot(data = OchII, aes(x = rank, y = proportion)) + 
+  scale_x_continuous(expand = c(0, 1), sec.axis = dup_axis(labels = NULL, name = NULL)) + 
+  scale_y_continuous(expand = c(0, 2), sec.axis = dup_axis(labels = NULL, name = NULL)) + 
+  geom_line(aes(colour = Grouping), size = 1) + 
+  geom_point(aes(colour = Grouping), size = 3, alpha = 0.7) + 
+  geom_text_repel(data = subset(OchII, labelit == TRUE), 
+                  aes(label = species), 
+                  angle = 5, nudge_x = 2, nudge_y = 1, show.legend = FALSE, max.overlaps = Inf) + 
+  BioR.theme + 
+  scale_color_manual(values = c("#440154", "#1C3B74", "#20A387", "#FDE725")) + 
+  facet_wrap(~ Grouping) + 
+  labs(x = "Rank", y = "Proportional Abundance", colour = "Site")
+ggsave(OchDos, file = "Och_II_CRAbun.png", path = "/Users/Artemis/Documents/GitHub/phylotree/", width = 13, height = 13, dpi = 600)
+
+
+
+
+
+
+
 
 
 
