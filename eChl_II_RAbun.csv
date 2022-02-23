@@ -1,0 +1,84 @@
+;Grouping;species;labelit;rank;abundance;proportion;plower;pupper;accumfreq;logabun;rankfreq
+1;Cha;ASV_65 C. pacifica;TRUE;1;1907;11,8;4,9;18,7;11,8;3,3;3,2
+2;Cha;ASV_78 C. pacifica;TRUE;2;1609;10;5;14,9;21,8;3,2;6,5
+3;Cha;ASV_29 C. pacifica;TRUE;3;1529;9,5;7,2;11,7;31,3;3,2;9,7
+4;Cha;ASV_86 C. pacifica;TRUE;4;1447;9;3,8;14,2;40,2;3,2;12,9
+5;Cha;ASV_60 Pycnococcaceae X sp.;TRUE;5;1437;8,9;-0,7;18,5;49,2;3,2;16,1
+6;Cha;ASV_56 C. pacifica;TRUE;6;1109;6,9;4,9;8,9;56;3;19,4
+7;Cha;ASV_48 C. pacifica;TRUE;7;1091;6,8;4,5;9;62,8;3;22,6
+8;Cha;ASV_84 Pycnococcaceae X sp.;TRUE;8;1068;6,6;-1,5;14,7;69,4;3;25,8
+9;Cha;ASV_94 Pycnococcaceae X sp.;TRUE;9;945;5,9;-1,3;13;75,3;3;29
+10;Cha;ASV_140 Pycnococcaceae X sp.;TRUE;10;709;4,4;-0,3;9,1;79,7;2,9;32,3
+11;Cha;ASV_382_Chloroparvula_pacifica;FALSE;11;464;2,9;1,1;4,7;82,5;2,7;35,5
+12;Cha;ASV_501_Chloroparvula_pacifica;FALSE;12;366;2,3;0,9;3,6;84,8;2,6;38,7
+13;Cha;ASV_499_Chloroparvula_pacifica;FALSE;13;347;2,2;0,8;3,5;87;2,5;41,9
+14;Cha;ASV_30_Picochlorum_sp.;FALSE;14;285;1,8;0,6;3;88,7;2,5;45,2
+15;Cha;ASV_192_Chloroparvula_pacifica;FALSE;15;274;1,7;1,5;1,9;90,4;2,4;48,4
+16;Cha;ASV_690_Chloroparvula_pacifica;FALSE;16;228;1,4;0,6;2,3;91,8;2,4;51,6
+17;Cha;ASV_252_Chloroparvula_pacifica;FALSE;17;216;1,3;1,1;1,6;93,2;2,3;54,8
+18;Cha;ASV_300_Chloroparvula_pacifica;FALSE;18;188;1,2;0,9;1,5;94,3;2,3;58,1
+19;Cha;ASV_181_Chloropicon_laureae;FALSE;19;167;1;0,6;1,5;95,4;2,2;61,3
+20;Cha;ASV_452_Chloroparvula_pacifica;FALSE;20;133;0,8;0,4;1,2;96,2;2,1;64,5
+21;Cha;ASV_597_Chloropicon_sieburthii;FALSE;21;128;0,8;0,1;1,5;97;2,1;67,7
+32;Fla;ASV_30 Picochlorum sp.;TRUE;1;2819;12,1;8,9;15,3;12,1;3,5;3,2
+33;Fla;ASV_29 C. pacifica;TRUE;2;2576;11,1;8,6;13,5;23,1;3,4;6,5
+34;Fla;ASV_51 Picochlorum sp.;TRUE;3;2095;9;7,1;10,9;32,1;3,3;9,7
+35;Fla;ASV_59 Picochlorum sp.;TRUE;4;1943;8,3;6,6;10,1;40,5;3,3;12,9
+36;Fla;ASV_48 C. pacifica;TRUE;5;1858;8;6,4;9,5;48,4;3,3;16,1
+37;Fla;ASV_56 C. pacifica;TRUE;6;1817;7,8;5,7;9,9;56,2;3,3;19,4
+38;Fla;ASV_60 Pycnococcaceae X sp.;TRUE;7;1584;6,8;1,8;11,8;63;3,2;22,6
+39;Fla;ASV_84 Pycnococcaceae X sp.;TRUE;8;1152;4,9;1,2;8,7;68;3,1;25,8
+40;Fla;ASV_94 Pycnococcaceae X sp.;TRUE;9;1121;4,8;1,2;8,4;72,8;3;29
+41;Fla;ASV_65 C. pacifica;TRUE;10;941;4;3;5,1;76,8;3;32,3
+42;Fla;ASV_181_Chloropicon_laureae;FALSE;11;941;4;3;5;80,9;3;35,5
+43;Fla;ASV_78_Chloroparvula_pacifica;FALSE;12;803;3,4;2,6;4,3;84,3;2,9;38,7
+44;Fla;ASV_140_Pycnococcaceae_X_sp.;FALSE;13;764;3,3;0,7;5,8;87,6;2,9;41,9
+45;Fla;ASV_86_Chloroparvula_pacifica;FALSE;14;740;3,2;2,4;3,9;90,8;2,9;45,2
+46;Fla;ASV_192_Chloroparvula_pacifica;FALSE;15;402;1,7;1,2;2,3;92,5;2,6;48,4
+47;Fla;ASV_252_Chloroparvula_pacifica;FALSE;16;282;1,2;0,9;1,5;93,7;2,5;51,6
+48;Fla;ASV_300_Chloroparvula_pacifica;FALSE;17;246;1,1;0,8;1,4;94,8;2,4;54,8
+49;Fla;ASV_404_Chloroparvula_pacifica;FALSE;18;228;1;0,7;1,2;95,7;2,4;58,1
+50;Fla;ASV_452_Chloroparvula_pacifica;FALSE;19;205;0,9;0,5;1,2;96,6;2,3;61,3
+51;Fla;ASV_510_Chloroparvula_pacifica;FALSE;20;160;0,7;0,5;0,9;97,3;2,2;64,5
+63;Hu;ASV_29 C. pacifica;TRUE;1;1120;13,7;6,6;20,8;13,7;3;3,2
+64;Hu;ASV_48 C. pacifica;TRUE;2;832;10,2;4,4;16;24;2,9;6,5
+65;Hu;ASV_30 Picochlorum sp.;TRUE;3;784;9,6;3,6;15,6;33,6;2,9;9,7
+66;Hu;ASV_56 C. pacifica;TRUE;4;665;8,2;2,7;13,6;41,8;2,8;12,9
+67;Hu;ASV_65 C. pacifica;TRUE;5;551;6,8;4,1;9,4;48,5;2,7;16,1
+68;Hu;ASV_60 Pycnococcaceae X sp.;TRUE;6;514;6,3;1;11,6;54,8;2,7;19,4
+69;Hu;ASV_78 C. pacifica;TRUE;7;455;5,6;3,1;8,1;60,4;2,7;22,6
+70;Hu;ASV_86 C. pacifica;TRUE;8;374;4,6;1,3;7,8;65;2,6;25,8
+71;Hu;ASV_59 Picochlorum sp.;TRUE;9;336;4,1;1,3;7;69,1;2,5;29
+72;Hu;ASV_51 Picochlorum sp.;TRUE;10;316;3,9;1,7;6;73;2,5;32,3
+73;Hu;ASV_443_Chlorodendrales_XX_sp.;FALSE;11;316;3,9;-4,6;12,4;76,9;2,5;35,5
+74;Hu;ASV_94_Pycnococcaceae_X_sp.;FALSE;12;312;3,8;-0,2;7,9;80,7;2,5;38,7
+75;Hu;ASV_84_Pycnococcaceae_X_sp.;FALSE;13;297;3,6;-0,6;7,9;84,4;2,5;41,9
+76;Hu;ASV_577_Chlorodendrales_XX_sp.;FALSE;14;262;3,2;-3,8;10,3;87,6;2,4;45,2
+77;Hu;ASV_192_Chloroparvula_pacifica;FALSE;15;204;2,5;1,3;3,7;90,1;2,3;48,4
+78;Hu;ASV_252_Chloroparvula_pacifica;FALSE;16;143;1,8;1;2,5;91,8;2,2;51,6
+79;Hu;ASV_181_Chloropicon_laureae;FALSE;17;139;1,7;0,5;3;93,5;2,1;54,8
+80;Hu;ASV_404_Chloroparvula_pacifica;FALSE;18;90;1,1;0,2;2;94,6;2;58,1
+81;Hu;ASV_140_Pycnococcaceae_X_sp.;FALSE;19;81;1;-0,5;2,4;95,6;1,9;61,3
+82;Hu;ASV_452_Chloroparvula_pacifica;FALSE;20;74;0,9;0,2;1,6;96,6;1,9;64,5
+83;Hu;ASV_510_Chloroparvula_pacifica;FALSE;21;70;0,9;0,2;1,5;97,4;1,8;67,7
+94;Pc;ASV_30 Picochlorum sp.;TRUE;1;2104;19,1;15,6;22,5;19,1;3,3;3,2
+95;Pc;ASV_51 Picochlorum sp.;TRUE;2;1774;16,1;14,3;17,8;35,1;3,2;6,5
+96;Pc;ASV_59 Picochlorum sp.;TRUE;3;1610;14,6;13,2;16;49,7;3,2;9,7
+97;Pc;ASV_29 C. pacifica;TRUE;4;880;8;4,8;11,2;57,7;2,9;12,9
+98;Pc;ASV_48 C. pacifica;TRUE;5;669;6,1;3,5;8,6;63,8;2,8;16,1
+99;Pc;ASV_56 C. pacifica;TRUE;6;614;5,6;3,7;7,4;69,3;2,8;19,4
+100;Pc;ASV_65 C. pacifica;TRUE;7;435;3,9;2,1;5,8;73,3;2,6;22,6
+101;Pc;ASV_60 Pycnococcaceae X sp.;TRUE;8;392;3,6;1,7;5,4;76,8;2,6;25,8
+102;Pc;ASV_78 C. pacifica;TRUE;9;376;3,4;1,8;5;80,3;2,6;29
+103;Pc;ASV_192 C. pacifica;TRUE;10;344;3,1;1,6;4,6;83,4;2,5;32,3
+104;Pc;ASV_86_Chloroparvula_pacifica;FALSE;11;313;2,8;1,7;4;86,2;2,5;35,5
+105;Pc;ASV_252_Chloroparvula_pacifica;FALSE;12;278;2,5;1,2;3,8;88,7;2,4;38,7
+106;Pc;ASV_300_Chloroparvula_pacifica;FALSE;13;258;2,3;1,3;3,4;91,1;2,4;41,9
+107;Pc;ASV_84_Pycnococcaceae_X_sp.;FALSE;14;240;2,2;-0,6;5;93,2;2,4;45,2
+108;Pc;ASV_94_Pycnococcaceae_X_sp.;FALSE;15;205;1,9;-0,4;4,2;95,1;2,3;48,4
+109;Pc;ASV_140_Pycnococcaceae_X_sp.;FALSE;16;105;1;-0,4;2,3;96;2;51,6
+110;Pc;ASV_404_Chloroparvula_pacifica;FALSE;17;76;0,7;0,4;1;96,7;1,9;54,8
+111;Pc;ASV_510_Chloroparvula_pacifica;FALSE;18;59;0,5;0,3;0,8;97,3;1,8;58,1
+112;Pc;ASV_443_Chlorodendrales_XX_sp.;FALSE;19;54;0,5;-1;1,9;97,8;1,7;61,3
+113;Pc;ASV_452_Chloroparvula_pacifica;FALSE;20;51;0,5;0,3;0,6;98,2;1,7;64,5
+114;Pc;ASV_181_Chloropicon_laureae;FALSE;21;49;0,4;-0,6;1,5;98,7;1,7;67,7
