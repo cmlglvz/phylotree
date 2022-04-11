@@ -13,24 +13,47 @@ library(ggtree)
 library(phylogram)
 library(dendextend)
 
-curated_rcc <- read.csv2("RCC_2/RCC_Depurado.txt", 
+curated_rcc <- read.csv2("RCC_2/curated_rcc.txt", 
                          header = TRUE, 
                          sep = ";", 
                          dec = ".", 
                          skip = 0)
 write.csv2(curated_rcc, "RCC_2/curated_rcc.csv")
 selected_rcc <- filter(curated_rcc, Keep == "Yes")
+selected_rcc <- selected_rcc[-c(1110,1111),]
 no_rcc <- filter(curated_rcc, Keep == "No")
-rcc_gen <- read.GenBank(selected_rcc$Genbank_accession, species.names = TRUE)
-rcc_accession <- read.table("RCC_2/accesion_rcc_2.txt")
+rcc_accession <- read.table("RCC_2/accesion_rcc.txt")
 rcc_accession <- rcc_accession$V1
 as.character(rcc_accession)
-rcc_gen <- read.GenBank(rcc_accession, species.names = TRUE)
-names_rcc <- data.frame(species = attr(rcc_gen, "species"), Genbank_accession = names(rcc_gen))
-head(names_rcc, n = 10)
-names(rcc_gen) <- attr(rcc_gen, "species")
-write.dna(rcc_gen, "RCC_2/revisited_rcc.fasta", format = "fasta")
+print(all(rcc_accession%in%selected_rcc$Genbank_accession))
+base::setdiff(rcc_accession,selected_rcc$Genbank_accession)
 
+#Get sequences
+rcc_gen <- read.GenBank(rcc_accession, species.names = TRUE)
+#Another option
+rcc_gen <- read.GenBank(selected_rcc$Genbank_accession, species.names = TRUE)
+write.dna(rcc_gen, "RCC_2/og_rcc_gen.fasta", format = "fasta")
+#Create a dataframe with sequences
+names_rcc <- data.frame(species = attr(rcc_gen, "species"), Genbank_accession = names(rcc_gen)) #note that you get names from NCBI database and not from RCC
+head(names_rcc, n = 10)
+#We add "species" names from NCBI to downloaded sequences that are in a DNAbin object
+ncbi <- rcc_gen
+names(ncbi) <- attr(ncbi, "species")
+#Export the sequences with its names to a fasta file
+write.dna(ncbi, "RCC_2/ncbi_seqs.fasta", format = "fasta")
+#Another option is to add the RCC code instead of NCBI names
+rcc_codes <- data.frame(names_rcc$species,
+                        paste(selected_rcc$RCC, selected_rcc$Genbank_accession, sep = "_")
+                        )
+#you can do it as you please
+rename.fasta(infile = "RCC_2/ncbi_seqs.fasta", ref_table = rcc_codes, outfile = "RCC_2/rcc_seqs.fasta")
+
+#Bit easier
+names(rcc_gen) <- rcc_codes[,2]
+write.dna(rcc_gen, "RCC_2/rcc_id_seqs.fasta", format = "fasta")
+check <- read.fasta("RCC_2/rcc_id_seqs.fasta", clean_name = TRUE)
+dat2fasta(check, outfile = "RCC_2/checked.fasta")
+########################################################################################################################################################
 
 RCC <- read.fasta(file = "rcc_seqs.fasta", clean_name = TRUE)
 Neu <- names_rcc
