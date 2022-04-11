@@ -1,11 +1,11 @@
-library(tidyverse)
-library(ape)
-library(phangorn)
-library(seqinr)
-library(Biostrings)
-library(ShortRead)
-library(DECIPHER)
-library(phylotools)
+library(tidyverse) #Si
+library(ape) #Si
+library(phangorn) #Si
+library(seqinr) #Si
+library(Biostrings) #Si
+library(ShortRead) #Si
+library(DECIPHER) #Si
+library(phylotools) #Si
 library(muscle)
 library(tidytree)
 library(treeio)
