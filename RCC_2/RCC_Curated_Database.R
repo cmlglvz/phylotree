@@ -45,14 +45,18 @@ write.dna(ncbi, "RCC_2/ncbi_seqs.fasta", format = "fasta")
 rcc_codes <- data.frame(names_rcc$species,
                         paste(selected_rcc$RCC, selected_rcc$Genbank_accession, sep = "_")
                         )
+write.csv2(rcc_codes, "RCC_2/rcc_codes.csv")
+#I externally edited the file
+rcc_codes_edited <- read.csv2("RCC_2/rcc_codes.csv", header = TRUE, sep = ";", dec = ".", skip = 0, row.names = 1)
 #you can do it as you please
 rename.fasta(infile = "RCC_2/ncbi_seqs.fasta", ref_table = rcc_codes, outfile = "RCC_2/rcc_seqs.fasta")
 
 #Bit easier
-names(rcc_gen) <- rcc_codes[,2]
+names(rcc_gen) <- paste(rcc_codes_edited$names, rcc_codes_edited$codes, sep = "_")
 write.dna(rcc_gen, "RCC_2/rcc_id_seqs.fasta", format = "fasta")
 check <- read.fasta("RCC_2/rcc_id_seqs.fasta", clean_name = TRUE)
 dat2fasta(check, outfile = "RCC_2/checked.fasta")
+unified <- read.fasta("RCC_2/unified.fasta")
 ########################################################################################################################################################
 
 RCC <- read.fasta(file = "rcc_seqs.fasta", clean_name = TRUE)
